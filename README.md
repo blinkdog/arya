@@ -67,7 +67,7 @@ The interface defines a single method:
 
 Arya will provide the UUID identity of the object and it's Java type. The
 implementing class should return a block of JSON, or null if it has no
-object of that kind.
+object by that UUID identity.
 
 #### AryaOutput
 
@@ -80,8 +80,8 @@ The interface defines a single method:
 Arya will provide a reference to the object being serialized, the UUID identity
 of that object, and the block of JSON to which the object was serialized.
 
-Here is a simple (anonymous) implementation of AryaOutput that output the
-JSON to the standard output:
+Here is a simple (anonymous) implementation of AryaOutput that will print the
+JSON to Java's standard output:
 
     Arya arya = new Arya();
     arya.register(new AryaOutput() {
@@ -121,16 +121,16 @@ of your dataset and plan accordingly.
 
 The following cases are known not to work:
 
-* Map<K,V> where K is parameterized type. JSON supports arrays and objects
+* `Map<K,V>` where K is parameterized type. JSON supports arrays and objects
   on the value (V) side, but only strings on the key (K) side.
     * Example: `Map<List<String>,Integer>` is not supported.
  
-* Map<K,V> where K or V is an array type or enumerated type.
+* `Map<K,V>` where K or V is an array type or enumerated type.
     * Example: `Map<String,Double[]>` is not supported.
     * Example: `Map<String,TrafficLightColor>` is not supported.
         * Note: `TrafficLightColor` is a Java enum containing RED, YELLOW, GREEN.
 
-* List<V> where V is an array type or enumerated type.
+* `List<V>` where V is an array type or enumerated type.
     * Example: `List<Double[]>` is not supported.
     * Example: `List<TrafficLightColor>` is not supported.
 
@@ -139,7 +139,7 @@ The following cases are suspected not to work:
 * Arrays with nulls embedded in them
 * Objects with null references (instead of empty collections) for parameterized
   types (List, Map, etc.)
-* Custom parameterized types, such as MyCollectionType<K,V,X> (for example)
+* Custom parameterized types, such as `MyCollectionType<K,V,X>` (for example)
 
 ### Control Limitations
 
@@ -182,9 +182,9 @@ However, it does not pass this extensibility on to its clients.
 
 ### Input/Output Support
 
-Arya ships with no AryaInput / AryaOutput support out of the box. If you want
-to connect Arya to a file system, database, network connection, etc. then you
-will need to implement these for yourself.
+Arya ships with no `AryaInput` / `AryaOutput` support out of the box. If you
+want to connect Arya to a file system, database, network connection, etc. then
+you will need to implement these for yourself.
 
 ## Why is it named 'Arya'?
 
